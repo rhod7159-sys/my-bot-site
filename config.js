@@ -1,4 +1,4 @@
 const BOT_CONFIG = {
-    token: "PUT_BUYER_BOT_TOKEN_HERE",
-    chat_id: "PUT_BUYER_CHAT_ID_HERE"
+    token: "9117015921:AAEXlGREbipJhAER2VA8DpiCb_CGeF2ui4I",
+    chat_id: "ضع_الآيدي_هنا"
 };
